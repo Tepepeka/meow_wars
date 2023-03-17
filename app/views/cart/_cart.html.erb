@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "cart" do %>
+  <h3>Cart</h3>
+  <% if user_signed_in? %>
+    <% if @cart.orderables.present? %>
+      <%= render "cart/orderables" %>
+      <p>Total: <%= @cart.total %></p>
+      <%= button_to "Pay", checkout_create_path(total:@cart.total), class: "btn btn-primary",
+      remote: true,
+      data: { turbo: "false" } %>
+    <% else %>
+      <p>Your cart is empty!</p>
+    <% end %>
+  <% end %>
+<% end %>
