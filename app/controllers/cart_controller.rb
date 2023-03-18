@@ -1,5 +1,11 @@
 class CartController < ApplicationController
 
+  before_action :authenticate_user!
+
+  def show
+  
+  end
+
   def add 
     @product = Product.find(params[:id])
     quantity = params[:quantity].to_i
