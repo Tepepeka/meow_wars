@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'products/index'
-  get 'products/show'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -11,6 +9,8 @@ Rails.application.routes.draw do
   get 'cart', to: 'cart#show'
   post 'cart/add'
   post 'cart/remove'
+  post 'cart/add_single'
+  post 'cart/remove_single'
 
   # Stripe
   scope '/checkout' do

@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_210335) do
 
   create_table "orderables", force: :cascade do |t|
     t.bigint "product_id", null: false
-    t.string "cart"
     t.bigint "cart_id", null: false
     t.integer "quantity"
     t.datetime "created_at", null: false

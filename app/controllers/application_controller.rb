@@ -9,10 +9,7 @@ class ApplicationController < ActionController::Base
 
   def initialize_cart
     if user_signed_in?
-    @cart ||= current_user.cart
-      if @cart.nil?
-        @cart = Cart.create(user_id: current_user.id)
-      end
+      @cart ||= current_user.cart || Cart.create(user: current_user)
     end
   end
 
