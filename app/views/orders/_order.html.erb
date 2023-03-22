@@ -1,0 +1,26 @@
+  <h1>Order Confirmation</h1>
+  <p>Date of payment: <%= order.payment_date %></p>
+  <table>
+  <thead>
+    <tr>
+      <th class="text-center">Product</th>
+      <th class="text-center">Price</th>
+      <th class="text-center">Quantity</th>
+      <th class="text-center">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% order.order_products.each do |detail| %>
+      <tr>
+        <td class="text-center"><%= detail.product.name %></td>
+        <td class="text-center"><%= number_to_currency(detail.price) %></td>
+        <td class="text-center"><%= detail.quantity %></td>
+        <td class="text-center"><%= number_to_currency(detail.price * detail.quantity) %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3"><strong>Total:</strong></td>
+      <td><%= number_to_currency(order.total) %></td>
+    </tr>
+  </tbody>
+</table>

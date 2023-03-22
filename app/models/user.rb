@@ -14,6 +14,7 @@ class User < ApplicationRecord
     email.split("@").first.capitalize
   end
 
-  has_one :cart
+  has_one :cart, dependent: :destroy
+  has_many :orders
 
 end

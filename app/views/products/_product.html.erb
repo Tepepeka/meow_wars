@@ -15,14 +15,15 @@
     <%= product.price %>
   </p>
 
-  <%= form_with(url: cart_add_single_path) do |f| %>
+  <% if user_signed_in? %>
+  <%= form_with(url: cart_add_remove_product_path) do |f| %>
     <%= f.hidden_field :id, value: product.id %>
-    <%= f.submit "Add to cart" %>
+    <% if @cart.orderables.find_by(product_id: product.id) %>
+      <%= f.submit "Remove to cart" %>
+    <%else%>
+      <%= f.submit "Add to cart" %>
+    <% end %>
   <% end %>
-
-  <%= form_with(url: cart_remove_single_path) do |f| %>
-    <%= f.hidden_field :id, value: product.id %>
-    <%= f.submit "Remove to cart" %>
   <% end %>
-
+ 
 </div>

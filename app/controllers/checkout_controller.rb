@@ -26,6 +26,29 @@ class CheckoutController < ApplicationController
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
+      # create a new order for the user
+      @total = @cart.total
+      @order = current_user.orders.create(
+        total: @total.to_d,
+        payment_date: Time.now
+      )
+  
+      # add order details (products) to the order
+      @cart.orderables.each do |orderable|
+        @order.order_products.create(
+          product: orderable.product,
+          quantity: orderable.quantity,
+          price: orderable.product.price
+        )
+      end
+  
+      # clear the user's cart after order is created
+      @cart.orderables.destroy_all
+  
+      # redirect to order confirmation page
+      redirect_to root_path
+      
   end
 
   def cancel

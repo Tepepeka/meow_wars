@@ -1,7 +1,5 @@
 <%= turbo_frame_tag "cart" do %>
   <% if user_signed_in? %>
-    <% name = current_user.name %>
-    <h3><%= link_to "#{name} cart", @cart %></h3>
     <% if @cart.orderables.present? %>
       <%= render "cart/orderables" %>
       <p>Total: <%= @cart.total %></p>
@@ -15,4 +13,4 @@
     <h3>Cart</h3>
     <p>You need to log in for buy products.</p>
   <% end %>
-<% end %>
+<% end %>²

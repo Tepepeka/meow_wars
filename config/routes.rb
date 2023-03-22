@@ -5,12 +5,13 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "products#index"  
   devise_for :users
+  resources :users, only: [:show]
   resources :products, only: [:show]
   get 'cart', to: 'cart#show'
   post 'cart/add'
   post 'cart/remove'
-  post 'cart/add_single'
-  post 'cart/remove_single'
+  post 'cart/add_remove_product'
+  resources :orders, only: [:show, :index]
 
   # Stripe
   scope '/checkout' do
