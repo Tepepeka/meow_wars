@@ -15,12 +15,15 @@ class CartController < ApplicationController
     else
       @cart.orderables.create(product: @product, quantity: 1)
     end
-      respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [turbo_stream.replace('cart',
-                                                  partial: 'cart/cart',
-                                                  locals: { cart: @cart}),
-                              turbo_stream.replace(@product)]
+
+    
+    respond_to do |format|
+    format.turbo_stream do
+      render turbo_stream: [turbo_stream.replace('cart',
+                                                partial: 'cart/cart',
+                                                locals: { cart: @cart}),
+                            turbo_stream.replace(@product)]
+                            
       end
     end
   end

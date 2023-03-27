@@ -5,11 +5,15 @@
   <%end%>
 
 
-
     <div class="d-flex align-items-center">
     
       <% if user_signed_in? %>
         <%= link_to @cart, class:"text-reset me-2" do %>
+         
+          <% if @cart.total > 0 %>
+            <%= number_to_currency(@cart.total) %>
+          <% end %>
+          
           <i class="fa-solid fa-cart-shopping text-primary"></i>
         <% end %>
         
