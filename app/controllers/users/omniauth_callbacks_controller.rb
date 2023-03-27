@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def github
       @user = User.from_omniauth(auth_params)
       if @user.persisted?
