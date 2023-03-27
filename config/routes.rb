@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "products#index"  
-  devise_for :users, :controllers => { registrations: "registrations", omniauth_callbacks: 'users/omniauth_callbacks'}
+  devise_for :users, :controllers => {omniauth_callbacks: 'users/omniauth_callbacks'}
   resources :users, only: [:show]
   resources :products, only: [:show]
   get 'cart', to: 'cart#show'
