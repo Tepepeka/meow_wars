@@ -5,7 +5,6 @@ ruby "3.2.0"
 
 # My gems
 gem "devise"
-gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "faker"
