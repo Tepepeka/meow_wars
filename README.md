@@ -26,3 +26,40 @@ Overall, your models seem well-organized and follow good practices. Here are som
     In User, the name method splits the email address to get the user's name. This might not always work, especially if the user has a complex email address with multiple "@" symbols. Instead, you might consider adding a name attribute to the User model and allowing users to set it when they register.
 
     In User, the welcome_send method sends a welcome email after a user signs up. This is a good feature, but you might consider moving this logic to a background job (using a gem like Sidekiq or ActiveJob) so that the user doesn't have to wait for the email to be sent before being redirected to the home page.
+
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <br><br><br>
+      <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-signin mt-3" } do |f| %>
+        <h1 class="h3 mb-3 font-weight-normal text-center">Sign up</h1>
+        <%= devise_error_messages! %>
+        <div class="form-group">
+          <%= f.label :email, "Email" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <em><%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        </div>
+        <div class="actions mt-5">
+          <%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block" %>
+        </div>
+      <% end %>
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>
+
+<!--
+<%= f.label :email %><br />
+<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+-->

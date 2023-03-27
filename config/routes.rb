@@ -20,4 +20,9 @@ Rails.application.routes.draw do
     get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
   end
 
+  # Admin
+  namespace :admin do
+    resources :users
+  end
+
 end

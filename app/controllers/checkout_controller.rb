@@ -31,7 +31,8 @@ class CheckoutController < ApplicationController
       @total = @cart.total
       @order = current_user.orders.create(
         total: @total.to_d,
-        payment_date: Time.now
+        payment_date: Time.now,
+        stripe_id: Faker::Alphanumeric.alphanumeric(number: 10, min_alpha: 3, min_numeric: 3)
       )
   
       # add order details (products) to the order
@@ -47,7 +48,7 @@ class CheckoutController < ApplicationController
       @cart.orderables.destroy_all
   
       # redirect to order confirmation page
-      redirect_to root_path
+      redirect_to orders_path
       
   end
 

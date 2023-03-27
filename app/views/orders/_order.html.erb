@@ -1,5 +1,8 @@
-  <h1>Order Confirmation</h1>
-  <p>Date of payment: <%= order.payment_date %></p>
+<div  class="card mb-2 mt-2">
+  <div class="card-body p-2">
+  <h5>Ref #<%=link_to order.stripe_id, order%></h5>
+  
+  <p>Date : <%= order.payment_date.strftime("%m/%d/%Y @%I:%M%p")%></p>
   <table>
   <thead>
     <tr>
@@ -24,3 +27,5 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>

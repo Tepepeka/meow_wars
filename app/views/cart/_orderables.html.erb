@@ -1,39 +1,41 @@
 <% @cart.orderables.each do |orderable| %>
   <% product = orderable.product %>
-
-    <div id="<%= "cart-#{product.id}" %>">
-
-    <p>
-      <strong>Name:</strong>
-      <%= link_to product.name, product_path(product), data: { turbo_frame: "_top" } %> 
-    </p>
-
-    <p>
-      <strong>Description:</strong>
-      <%= product.description %>
-    </p>
-
-    <p>
-      <strong>Price:</strong>
-      <%= product.price %>
-    </p>
-
-    <%= form_with(url: cart_add_path) do |f| %>
-      <%= f.hidden_field :id, value: product.id %>
-      <%= f.number_field :quantity, value: orderable.quantity, min: 0 %>
-      <%= f.submit "Add to cart" %>
-    <% end %>
-
-    <%= form_with(url: cart_remove_path) do |f| %>
-      <%= f.hidden_field :id, value: orderable.id %>
-      <%= f.submit "X" %>
-    <% end %>
-
-    <p>
-      <strong>Total:</strong>
-      <%= orderable.total %>
-    </p>
+  
+  <div id="<%= "cart-#{product.id}" %>" class="card mb-4 mt-2">
     
-  </div>
+    <div class="card-body p-2">
+      <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-2 col-lg-2 col-xl-2">
+          <img src="https://picsum.photos/200/200" class="card-img" alt="picsum" width="75%" height="100">
+        </div>
 
+        <div class="col-md-3 col-lg-3 col-xl-3">
+          <p class="lead fw-normal mb-2"><%= link_to product.name, product_path(product), data: { turbo_frame: "_top" } %></p>
+          <p><span class="text"><%= product.description %></p>
+          <p><span class="text-muted">$<%= product.price %></p>
+        </div>
+                
+        <div class="col-md-3 col-lg-3 col-xl-2">
+          <%= form_with(url: cart_add_path) do |f| %>
+            <%= f.hidden_field :id, value: product.id %>
+            <label><%= f.label :quantity %> :</label>
+            <%= f.number_field :quantity, value: orderable.quantity, min: 0, class:"mt-2" %>
+            <%= f.submit "Add to cart", class:"mt-2" %>
+          <% end %>
+        </div>
+
+        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+          <h5 class="mb-0">Total : $<%= orderable.total %></h5>
+        </div>
+
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+          <%= form_with(url: cart_remove_path) do |f| %>
+            <%= f.hidden_field :id, value: orderable.id %>
+            <%= f.submit "X"%>
+          <% end %>
+        </div>
+    
+      </div>
+    </div>
+  </div>
 <% end %>
