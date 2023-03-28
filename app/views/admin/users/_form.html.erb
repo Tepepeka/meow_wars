@@ -1,0 +1,31 @@
+<div  class="card mb-2 mt-2">
+  <div class="card-body p-2">
+  <h5 class="card-title"><%=@user.name%> : </h5>
+    <%= form_with(model: [:admin, user]) do |form| %>
+      <form>
+
+      <% if user.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% user.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group mb-2">
+        <%= form.label :admin, style: "display: block" %>
+        <%= form.check_box :admin %>
+      </div>
+
+      <div class="actions mb-2">
+        <%= form.submit "Update", class:"btn btn-success"%>
+      </div>
+
+    </form>
+  <% end %>
+  </div>
+</div>

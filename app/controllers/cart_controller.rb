@@ -16,14 +16,13 @@ class CartController < ApplicationController
       @cart.orderables.create(product: @product, quantity: 1)
     end
 
-    
     respond_to do |format|
     format.turbo_stream do
       render turbo_stream: [turbo_stream.replace('cart',
                                                 partial: 'cart/cart',
                                                 locals: { cart: @cart}),
-                            turbo_stream.replace(@product)]
-                            
+                            turbo_stream.replace(@product),
+                            turbo_stream.update('number_products_cart', sprintf('%.2f', @cart.total))]
       end
     end
   end
@@ -46,7 +45,8 @@ class CartController < ApplicationController
         render turbo_stream: [turbo_stream.replace('cart',
                                                   partial: 'cart/cart',
                                                   locals: { cart: @cart}),
-                              turbo_stream.replace(@product)]
+                              turbo_stream.replace(@product),
+                              turbo_stream.update('number_products_cart', sprintf('%.2f', @cart.total))]
       end
     end
   end
@@ -56,12 +56,13 @@ class CartController < ApplicationController
     Orderable.find(params[:id]).destroy
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace('cart',
+        render turbo_stream: [turbo_stream.replace('cart',
                                                   partial: 'cart/cart',
-                                                  locals: { cart: @cart})
+                                                  locals: { cart: @cart}),
+                                                  turbo_stream.replace(@product),
+                              turbo_stream.update('number_products_cart', sprintf('%.2f', @cart.total))]
       end      
     end
   end
 
 end
-

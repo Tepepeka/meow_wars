@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <%= link_to sanitize("&larr; Back to user"), admin_user_path(@user) %>
+    <%= render "form", user: @user %>
+  </div>
+</div>

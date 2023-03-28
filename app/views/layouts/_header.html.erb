@@ -1,39 +1,54 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container-fluid">
-  <%=link_to root_path do %>
-    <i class="navbar-brand fa-solid fa-paw text-primary"></i>
-  <%end%>
+    <%=link_to root_path do %>
+      <i class="navbar-brand fa-solid fa-paw text-primary"></i>
+    <%end%>
 
+      <% if admin? %>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%= link_to 'Dashboard', admin_users_path, class: "text-warning"%>
+          </li>
+        </ul>
+      <% end %>
 
-    <div class="d-flex align-items-center">
-    
-      <% if user_signed_in? %>
-        <%= link_to @cart, class:"text-reset me-2" do %>
-         
-          <% if @cart.total > 0 %>
-            <%= number_to_currency(@cart.total) %>
-          <% end %>
+      <div class="d-flex align-items-center">
+
+        <% if user_signed_in? %>
+          $ 
+          <div id="number_products_cart" class="me-2" data-turbo = "true">
+            <% if @cart.total > 0 %>
+              <%= sprintf('%.2f', @cart.total)  %>
+            <% else %>
+              0.00
+            <% end %>
+          </div>
+            
+            
+            <%= link_to @cart, class:"text-reset me-2" do %>
+              <i class="fa-solid fa-cart-shopping text-primary"></i>
+              <% end %>
+
+           
           
-          <i class="fa-solid fa-cart-shopping text-primary"></i>
-        <% end %>
-        
-        <%= link_to orders_path, class:"text-reset me-2", data: { turbo_frame: "_top" } do %>
-          <i class="fa-solid fa-file-invoice-dollar text-primary"></i>
+
+          <%= link_to orders_path, class:"text-reset me-2", data: { turbo_frame: "_top" } do %>
+            <i class="fa-solid fa-file-invoice-dollar text-primary"></i>
+          <% end %>
+
+          <span class="me-2">#Hi, <%= current_user.name %> !</span>
+          <span class="me-2">/</span>
+          <%= link_to "Sign out", destroy_user_session_path, data: {
+                                  turbo_method: :delete,
+                                  turbo_confirm: "Are you sure?",
+                                  class:"me-2"
+                                } %>
+        <% else %>
+          <%= link_to "Sign in", new_user_session_path, class:"me-2"%> 
+          <span class="me-2">/</span>
+          <%= link_to "Sign up", new_user_registration_path, class:"me-2"%>
         <% end %>
 
-        <span class="me-2">#Hi, <%= current_user.name %> !</span>
-        <span class="me-2">/</span>
-        <%= link_to "Sign out", destroy_user_session_path, data: {
-                                turbo_method: :delete,
-                                turbo_confirm: "Are you sure?",
-                                class:"me-2"
-                              } %>
-      <% else %>
-        <%= link_to "Sign in", new_user_session_path, class:"me-2"%> 
-        <span class="me-2">/</span>
-        <%= link_to "Sign up", new_user_registration_path, class:"me-2"%>
-      <% end %>  
-     
-    </div>
+      </div>
   </div>
 </nav>
