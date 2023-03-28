@@ -1,9 +1,9 @@
 <div id="<%= dom_id user %>">
-  <div  class="card mb-2 mt-2">
-    <div class="card-body p-2"> 
+  
+    <div class="card-body"> 
       <h5 class="card-title">User : </h5>
       <p class="card-text"><%= user.email %></p>
-      <div class="mb-2">
+      <div>
         <%= link_to "Edit", edit_admin_user_path(@user), class:"btn btn-warning" %> 
         <%= link_to "Destroy", admin_user_path(@user), class:"btn btn-danger", data: { turbo_method: :delete,
                                                                                        turbo_confirm: "Are you sure?"
@@ -11,4 +11,3 @@
       </div>
     </div>
   </div>
-</div>
