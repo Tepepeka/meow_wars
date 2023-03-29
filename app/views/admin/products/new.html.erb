@@ -2,9 +2,9 @@
   <div class="col-md-4 offset-md-4">
   <%= link_to sanitize("&larr; Back to product"), admin_products_path %>
     <div class="card mt-2">
-   
+    <%= turbo_frame_tag @product do %>
     <%= render "form", product: @product %>
-  
+    <% end %>
     </div>
   <div>
 </div>

@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-    def admin?
+  def admin?
     current_user && current_user.admin? == true
   end
 

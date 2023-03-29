@@ -4,7 +4,7 @@ class Admin::ProductsController < ApplicationController
   before_action :is_admin?
 
   def index
-    @products = Product.all
+    @products = Product.ordered
   end
 
   def show
@@ -18,9 +18,12 @@ class Admin::ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      redirect_to admin_products_path, notice: "Product was successfully created."
+      respond_to do |format|
+        format.html { redirect_to admin_products_path, notice: "Product was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Product was successfully created." }
+      end
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -28,13 +31,22 @@ class Admin::ProductsController < ApplicationController
   end
 
   def update
-    @product.update(post_params)
-    redirect_to admin_products_path, notice: "Product was successfully updated."
+    if @product.update(product_params)
+    respond_to do |format|
+      format.html { redirect_to admin_products_path, notice: "Article was successfully updated." }
+      format.turbo_stream { flash.now[:notice] = "Product was successfully updated." }
+    end
+  else
+    render :edit, status: :unprocessable_entity
   end
+end
 
   def destroy
     @product.destroy
-    redirect_to admin_products_path, notice: "Product was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to admin_products_path, notice: "Product was successfully destroyed." }
+      format.turbo_stream { flash.now[:notice] = "Product was successfully destroyed." }
+    end
   end
   
   #######
@@ -45,7 +57,7 @@ class Admin::ProductsController < ApplicationController
       @product = Product.find(params[:id])
   end
 
-  def post_params
+  def product_params
     params.require(:product).permit(:name, :description, :price)
   end
 
