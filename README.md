@@ -66,35 +66,33 @@ Overall, your models seem well-organized and follow good practices. Here are som
 
 
 <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @products.sort{|a,b| b.created_at <=> a.created_at}.each do |product| %>
-                <tr>
-                  <th scope="row"><%= link_to product.id, admin_product_path(product) %></th>
-                  <td><%= product.name%></td>
-                  <td>$<%= product.price %></td>
-                  <td>
-                    <%= link_to "Edit", edit_admin_product_path(product) %>
-                    /
-                    <%= link_to "Destroy", admin_product_path(product), data: {
-                                                                  turbo_method: :delete,
-                                                                  turbo_confirm: "Are you sure?"
-                                                                } %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table> 
-        </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.sort{|a,b| b.created_at <=> a.created_at}.each do |product| %>
+        <tr>
+          <th scope="row"><%= link_to product.id, admin_product_path(product) %></th>
+          <td><%= product.name%></td>
+          <td>$<%= product.price %></td>
+          <td>
+            <%= link_to "Edit", edit_admin_product_path(product) %>
+            /
+            <%= link_to "Destroy", admin_product_path(product), data: { turbo_method: :delete,
+                                                                        turbo_confirm: "Are you sure?"
+                                                                      } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table> 
+</div>
 
 
          <img src="https://picsum.photos/200/200" class="card-img-top" alt="picsum" width="100%" height="200">

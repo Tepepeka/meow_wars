@@ -3,15 +3,20 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root "products#index"  
+
+  root "products#index"
   devise_for :users, :controllers => {omniauth_callbacks: 'users/omniauth_callbacks'}
   resources :users, only: [:show]
-  resources :products, only: [:show]
+  resources :products, only: [:show] do
+    resources :comments
+  end
+  resources :orders, only: [:show, :index]
+
+  # Turbo cart
   get 'cart', to: 'cart#show'
   post 'cart/add'
   post 'cart/remove'
   post 'cart/add_remove_product'
-  resources :orders, only: [:show, :index]
 
   # Stripe
   scope '/checkout' do

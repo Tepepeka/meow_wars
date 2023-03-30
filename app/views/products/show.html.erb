@@ -3,6 +3,11 @@
     <%= link_to sanitize("&larr; Back to products"), root_path %>
     <div class="card mt-2">
       <%= render @product %>
+      <h5 class="mx-3">Comments :</h5>
+      <%= render @product.comments %>
+      <% if user_signed_in? %>
+      <%= render 'comments/form' %>
+      <% end %>
     </div>
   <div>
 </div>

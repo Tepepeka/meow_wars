@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def owner?(object)
+    current_user == object.user 
+  end
+
   def admin?
     current_user && current_user.admin? == true
   end
