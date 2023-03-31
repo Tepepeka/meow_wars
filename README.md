@@ -116,6 +116,10 @@ To use this software you need :
   google_oauth2_client_id = "your google client id"
   google_oauth2_client_secret = "your google client secret"
   ```
+8. Rails server
+  ```ruby
+  rails server
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
