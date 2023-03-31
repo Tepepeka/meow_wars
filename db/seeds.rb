@@ -61,13 +61,3 @@ end
   puts "*"*(i+1)
   puts "#{i+1} Comment(s) created"
 end
-
-# Like create
-50.times do |i|
-  Likeable.create(
-    product_id:Product.all.sample.id,
-    user_id:User.all.sample.id
-  )
-  puts "*"*(i+1)
-  puts "#{i+1} Like(s) created"
-end
