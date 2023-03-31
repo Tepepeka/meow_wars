@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
-  #after_create :welcome_send
+  after_create :welcome_send
 
   has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
