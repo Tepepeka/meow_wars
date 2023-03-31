@@ -46,7 +46,7 @@ You can :
 * Buy a product with a quantity
 * Comment a product
 * Like a product
-* Have an admin
+* Have an admin (email:tppk@love // pwd:tepepeka)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
