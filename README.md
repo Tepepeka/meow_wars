@@ -111,15 +111,3 @@ Overall, your models seem well-organized and follow good practices. Here are som
       
     </div>
   </div>
-
-
-   public_target = "product_#{product.id}_public_likes"
-    broadcast_replace_later_to 'public_likes',
-                                target: public_target,
-                                partial:'likes/like_count',
-                                locals: {product: product}
-
-vue show et index
-                                <%= turbo_stream_from "public_likes" %>
-
-                                <%= turbo_stream_from "public_likes" %>

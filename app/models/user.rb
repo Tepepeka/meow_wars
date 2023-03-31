@@ -38,6 +38,11 @@ class User < ApplicationRecord
     else
       liked_products << product
     end
+    public_target = "product_#{product.id}_public_likes"
+    broadcast_replace_later_to 'public_likes',
+                                target: public_target,
+                                partial:'likes/like_count',
+                                locals: {product: product}
   end
 
   
