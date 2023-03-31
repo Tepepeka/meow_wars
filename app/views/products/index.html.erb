@@ -1,8 +1,13 @@
+<%= turbo_stream_from "public_likes" %>
 <div id="products" class="row row-cols-1 row-cols-md-4 g-4">
   <% @products.each do |product| %>
     <div class="col">
-      <div class="card shadow-sm h-100">
-        <%= render product %>
+      <div class="card shadow-sm">
+      <% if current_user %>
+        <%= render product, product: product,like_status: current_user.liked?(product)  %>
+      <% else %>
+        <%= render product, product: product %>
+      <% end %>
       </div>
     </div>
   <% end %>

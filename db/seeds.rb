@@ -7,11 +7,67 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # Destroy all
+Order.destroy_all
+OrderProduct.destroy_all
+Cart.destroy_all
+Comment.destroy_all
+Likeable.destroy_all
+User.destroy_all
 Product.destroy_all
 
-Product.create(name:"Pif", description:"Pif le chien", price:29.95)
-Product.create(name:"Hercule", description:"Hercule le chat", price:59.95)
-Product.create(name:"Diabolo", description:"les fous du volant 1", price:14.95)
-Product.create(name:"Satanas", description:"les fous du volant 2", price:19.95)
-Product.create(name:"Tom", description:"Warner Bros 1", price:69.95)
-Product.create(name:"Jerry", description:"Warner Bros 2", price:99.95) 
+# Users create
+20.times do |i|
+  name = Faker::Name.first_name
+  User.create(
+      email:"#{name}@yopmail.com",
+      password:"foobar",
+      password_confirmation:"foobar"
+  )
+  puts "*"*(i+1)
+  puts "#{i+1} user(s) created"
+end
+
+# Admin create
+User.create(email:"tppk@love", password:"tepepeka", password_confirmation:"tepepeka", admin:true)
+puts "Admin created"
+
+# Product create
+12.times do |i|
+  image_url = "http://placekitten.com/300/300"
+  Product.create(
+      image_url: image_url,
+      name:Faker::Creature::Cat.name,
+      description:Faker::Movies::StarWars.quote,
+      price:rand(1.00..99.95).round(2)
+  )
+  puts "*"*(i+1)
+  puts "#{i+1} Product(s) created"
+end
+
+# Cart create
+User.all.each_with_index do |user, i|
+  Cart.create(user_id: user.id)
+  puts "*"*(i+1)
+  puts "#{i+1} Cart(s) created"
+end
+
+# Comment create
+50.times do |i|
+  Comment.create(
+      body:Faker::Movies::StarWars.quote,
+      product_id:Product.all.sample.id,
+      user_id:User.all.sample.id
+  )
+  puts "*"*(i+1)
+  puts "#{i+1} Comment(s) created"
+end
+
+# Like create
+50.times do |i|
+  Likeable.create(
+    product_id:Product.all.sample.id,
+    user_id:User.all.sample.id
+  )
+  puts "*"*(i+1)
+  puts "#{i+1} Like(s) created"
+end

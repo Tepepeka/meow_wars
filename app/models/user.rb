@@ -5,7 +5,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
-  after_create :welcome_send
+  #after_create :welcome_send
+
+  has_one :cart, dependent: :destroy
+  has_many :orders, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likeables, dependent: :destroy
+  has_many :liked_products,through: :likeables, source: :product
 
   def welcome_send
     UserMailer.welcome_email(self).deliver_now
@@ -22,8 +28,22 @@ class User < ApplicationRecord
     end
   end
 
-  has_one :cart, dependent: :destroy
-  has_many :orders
-  has_many :comments
+  def liked?(product)
+    liked_products.include?(product)
+  end
 
+  def like(product)
+    if liked_products.include?(product)
+      liked_products.destroy(product)
+    else
+      liked_products << product
+    end
+    public_target = "product_#{product.id}_public_likes"
+    broadcast_replace_later_to 'public_likes',
+                                target: public_target,
+                                partial:'likes/like_count',
+                                locals: {product: product}
+  end
+
+  
 end

@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     @product = Product.find(params[:product_id])
     @comment = @product.comments.find(params[:id])
     @comment.destroy
-    redirect_to product_path(@product), status: :see_other
+    redirect_to product_path(@product), status: :see_other, notice: "Comment was successfully destroyed."
   end
 
 

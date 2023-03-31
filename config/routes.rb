@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :products, only: [:show] do
     resources :comments
+    
   end
   resources :orders, only: [:show, :index]
 
@@ -30,5 +31,8 @@ Rails.application.routes.draw do
     resources :users
     resources :products
   end
+
+  # like_product_path(product)
+  post 'like/:id', to: 'products#like', as: 'like_product'
 
 end

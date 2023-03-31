@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "#{dom_id(product)}_private_likes", class:"d-flex align-items-center" do %>
+  <% like_text = current_user.liked?(product) ? "text-danger" : "text-white" %>
+  <%= link_to like_product_path(id: product.id), class:"btn btn-link btn-outline-none button_like", data: { turbo_method: "post" } do %>
+    <span class="fa-regular fa-heart mx-2 <%=like_text%>"></span>
+  <% end %>
+  <p><%= render 'likes/like_count', product: product %><p>
+<% end %>
+
