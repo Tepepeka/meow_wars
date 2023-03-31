@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
-  after_create :welcome_send
+  #after_create :welcome_send
 
   has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
@@ -38,11 +38,6 @@ class User < ApplicationRecord
     else
       liked_products << product
     end
-    public_target = "product_#{product.id}_public_likes"
-    broadcast_replace_later_to 'public_likes',
-                                target: public_target,
-                                partial:'likes/like_count',
-                                locals: {product: product}
   end
 
   
